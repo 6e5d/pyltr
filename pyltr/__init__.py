@@ -6,6 +6,14 @@ class Slit:
 	def __repr__(self):
 		return json.dumps(self.s)
 
+def ltr_map(s, fstr, fslit):
+	if isinstance(s, list):
+		return [ltr_map(ss, fstr, fslit) for ss in s]
+	if isinstance(s, str):
+		return fstr(s)
+	if isinstance(s, Slit):
+		return fslit(s)
+
 def parse(s):
 	stack = []
 	state = 0
