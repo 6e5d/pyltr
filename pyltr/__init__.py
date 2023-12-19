@@ -1,6 +1,6 @@
 import json
 
-class Slit:
+class S:
 	def __init__(self, s):
 		self.s = s
 	def __repr__(self):
@@ -11,8 +11,18 @@ def ltr_map(s, fstr, fslit):
 		return [ltr_map(ss, fstr, fslit) for ss in s]
 	if isinstance(s, str):
 		return fstr(s)
-	if isinstance(s, Slit):
+	if isinstance(s, S):
 		return fslit(s)
+
+def dump(j):
+	if isinstance(j, str):
+		assert "[]" not in j
+		return j
+	if isinstance(j, S):
+		return json.dumps(j.s)
+	assert isinstance(j, list)
+	j = [dump(jj) for jj in j]
+	return "[" + " ".join(j) + "]"
 
 def parse(s):
 	stack = []
@@ -23,7 +33,7 @@ def parse(s):
 			if ch == "\\":
 				state = 2
 			elif ch == '"':
-				stack[-1][-1] = Slit(stack[-1][-1])
+				stack[-1][-1] = S(stack[-1][-1])
 				state = 0
 				space = True
 			else:
