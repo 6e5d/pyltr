@@ -24,7 +24,21 @@ def dump(j):
 	j = [dump(jj) for jj in j]
 	return "[" + " ".join(j) + "]"
 
-def parse(s):
+def striphash(s):
+	lines = []
+	for line in s.split("\n"):
+		if not line:
+			continue
+		if line[0] == "#":
+			continue
+		lines.append(line)
+	return "\n".join(lines)
+
+def parse_flat(s):
+	j = parse_slit(s)
+	return ltr_map(j, lambda x: x, lambda x: x.s)
+
+def parse_slit(s):
 	stack = []
 	state = 0
 	space = True
@@ -68,4 +82,4 @@ def parse(s):
 				else:
 					stack[-1][-1] += ch
 				space = False
-	raise Exception(stack)
+	raise Exception(len(stack), stack)
