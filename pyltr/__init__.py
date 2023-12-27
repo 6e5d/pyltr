@@ -14,9 +14,18 @@ def ltr_map(s, fstr, fslit):
 	if isinstance(s, S):
 		return fslit(s)
 
+def dump_flat(j):
+	if isinstance(j, str):
+		if any([ch in " \t\n[]" for ch in j]):
+			return json.dumps(j)
+		return j
+	assert isinstance(j, list)
+	j = [dump_flat(jj) for jj in j]
+	return "[" + " ".join(j) + "]"
+
 def dump(j):
 	if isinstance(j, str):
-		assert "[]" not in j
+		assert all([ch not in " \t\n[]" for ch in j])
 		return j
 	if isinstance(j, S):
 		return json.dumps(j.s)

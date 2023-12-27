@@ -1,4 +1,4 @@
-from . import parse_flat, dump
+from . import parse_flat, dump_flat
 import sys
 j = parse_flat(sys.stdin.read())
 
@@ -18,7 +18,7 @@ def pretty_print(j, indent):
 			continue
 		break
 	else:
-		s = dump(j)
+		s = dump_flat(j)
 		print(sep * indent + f"{s}")
 		return
 	#print(end = sep * indent + "[\n")
