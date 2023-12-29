@@ -74,12 +74,12 @@ def parse_slit(s):
 				stack[-1].append("")
 				state = 1
 				space = False
-			elif ch in "[({":
+			elif ch in "[":
 				stack.append([])
 				space = True
 			elif ch in " \t\n":
 				space = True
-			elif ch in "])}":
+			elif ch in "]":
 				last = stack.pop()
 				if len(stack) == 0:
 					return last
