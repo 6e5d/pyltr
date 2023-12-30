@@ -25,7 +25,8 @@ def dump_flat(j):
 
 def dump(j):
 	if isinstance(j, str):
-		assert all([ch not in " \t\n[]" for ch in j])
+		if any([ch in " \t\n[]" for ch in j]):
+			raise Exception(j)
 		return j
 	if isinstance(j, S):
 		return json.dumps(j.s)
